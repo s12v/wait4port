@@ -26,26 +26,26 @@ try_address() {
 commands=""
 pids=""
 for address; do
-    ( try_address $address ) &
-    pid=$!
-    pids+=" $pid"
-    commands[$pid]=$address
+	( try_address $address ) &
+	pid=$!
+	pids+=" $pid"
+	commands[$pid]=$address
 done
 
 ret=0
 for p in $pids; do
-    if wait $p; then
-    	tput setaf 2
-        echo -n "${commands[$p]}: ok "
-    else
-    	if [ "$?" -gt 128 ]; then
-    		kill $?
-    	else
-	    	tput setaf 1
-	        echo -n "${commands[$p]}: timeout "
-    	fi
-        ret=1
-    fi
+	if wait $p; then
+		tput setaf 2
+		echo -n "${commands[$p]}: ok "
+	else
+		if [ "$?" -gt 128 ]; then
+		kill $?
+		else
+			tput setaf 1
+			echo -n "${commands[$p]}: timeout "
+		fi
+		ret=1
+	fi
 done
 
 echo ""
