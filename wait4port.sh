@@ -27,10 +27,9 @@ echo -n "Waiting for TCP connections "
 commands=""
 pids=""
 for address; do
-	( try_address $address ) &
-	pid=$!
-	pids+=" $pid"
+	( try_address $address ) & pid=$!
 	commands[$pid]=$address
+	pids+=" $pid"
 done
 
 ret=0
@@ -41,7 +40,7 @@ for p in $pids; do
 		tput sgr0
 	else
 		if [ "$?" -gt 128 ]; then
-		kill $?
+			kill $?
 		else
 			tput setaf 1
 			echo -n " ${commands[$p]} timeout "
