@@ -45,7 +45,7 @@ try_address() {
 	exit 1
 }
 
-echo -n "Waiting for connections "
+echo -n "Waiting for connections: "
 commands=""
 pids=""
 for address; do
