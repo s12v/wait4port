@@ -5,7 +5,7 @@ Wait for an open port with 60 seconds timeout
 ## Usage
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/s12v/wait4port/master/wait4port.sh) host:port
+bash <(curl -s https://raw.githubusercontent.com/s12v/wait4port/master/wait4port.sh) [http://]host:port
 ```
 
 ## Return codes
