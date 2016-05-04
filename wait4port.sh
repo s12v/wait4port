@@ -21,10 +21,10 @@ try_address() {
 
 	if [[ $m1 =~ ^http.?$ ]] && [ ! -z "$m2" ] && [[ $m3 =~ ^[0-9]+$ ]]; then
 		local cmd="curl -s -o /dev/null $m1:$m2:$m3"
-		tput setaf 4; echo -n "curl $address "; tput sgr0
+		tput setaf 4; echo -n "$address (curl)"; tput sgr0
 	elif [ ! -z "$m1" ] && [[ $m2 =~ ^[0-9]+$ ]]; then
 		local cmd="nc -z $m1 $m2"
-		tput setaf 5; echo -n "nc $address "; tput sgr0
+		tput setaf 5; echo -n "$address (nc) "; tput sgr0
 	else
 		echo "Invalid parameters: $address"
 		exit 1
@@ -33,7 +33,7 @@ try_address() {
 	if [ ! -z "$cmd" ]; then
 		for i in `seq 1 $RETRIES`; do
 			if $cmd 2> /dev/null; then
-				tput setaf 2; echo -n " $address up "; tput sgr0
+				tput setaf 2; echo -n " $address up! "; tput sgr0
 				exit 0;
 			fi
 			echo -n "."
@@ -45,7 +45,7 @@ try_address() {
 	exit 1
 }
 
-echo -n "Waiting for TCP connections "
+echo -n "Waiting for connections "
 commands=""
 pids=""
 for address; do
